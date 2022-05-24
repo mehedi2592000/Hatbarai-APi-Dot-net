@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FinalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="agencies">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="address" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="contacNo" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="imageUrl" Type="varchar(max)" />
+    <Property Name="balance" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="notifications">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="type" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="message" Type="varchar(max)" Nullable="false" />
+    <Property Name="title" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="date" Type="date" Nullable="false" />
+    <Property Name="senderid" Type="int" Nullable="false" />
+    <Property Name="receiverid" Type="int" />
+  </EntityType>
+  <EntityType Name="orphans">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="contactNo" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="address" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="isAccepted" Type="bit" Nullable="false" />
+    <Property Name="aid" Type="int" />
+    <Property Name="vid" Type="int" />
+  </EntityType>
+  <EntityType Name="tokens">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userId" Type="int" />
+    <Property Name="accessToken" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="createdAt" Type="datetime" Nullable="false" />
+    <Property Name="expiredAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="transactions">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="donatorid" Type="int" />
+    <Property Name="reciverid" Type="int" />
+    <Property Name="type" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="date" Type="date" Nullable="false" />
+    <Property Name="amount" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="role" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="aid" Type="int" />
+    <Property Name="balance" Type="bigint" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_orphans_agencies">
+    <End Role="agencies" Type="Self.agencies" Multiplicity="0..1" />
+    <End Role="orphans" Type="Self.orphans" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="agencies">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="orphans">
+        <PropertyRef Name="aid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_orphans_users">
+    <End Role="users" Type="Self.users" Multiplicity="0..1" />
+    <End Role="orphans" Type="Self.orphans" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="orphans">
+        <PropertyRef Name="vid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tokens_tokens">
+    <End Role="users" Type="Self.users" Multiplicity="0..1" />
+    <End Role="tokens" Type="Self.tokens" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="tokens">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_users_agencies">
+    <End Role="agencies" Type="Self.agencies" Multiplicity="0..1" />
+    <End Role="users" Type="Self.users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="agencies">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="users">
+        <PropertyRef Name="aid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FinalModelStoreContainer">
+    <EntitySet Name="agencies" EntityType="Self.agencies" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="notifications" EntityType="Self.notifications" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="orphans" EntityType="Self.orphans" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tokens" EntityType="Self.tokens" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="transactions" EntityType="Self.transactions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_orphans_agencies" Association="Self.FK_orphans_agencies">
+      <End Role="agencies" EntitySet="agencies" />
+      <End Role="orphans" EntitySet="orphans" />
+    </AssociationSet>
+    <AssociationSet Name="FK_orphans_users" Association="Self.FK_orphans_users">
+      <End Role="users" EntitySet="users" />
+      <End Role="orphans" EntitySet="orphans" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tokens_tokens" Association="Self.FK_tokens_tokens">
+      <End Role="users" EntitySet="users" />
+      <End Role="tokens" EntitySet="tokens" />
+    </AssociationSet>
+    <AssociationSet Name="FK_users_agencies" Association="Self.FK_users_agencies">
+      <End Role="agencies" EntitySet="agencies" />
+      <End Role="users" EntitySet="users" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

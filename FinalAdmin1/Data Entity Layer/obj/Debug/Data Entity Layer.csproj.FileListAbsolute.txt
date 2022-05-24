@@ -1,0 +1,10 @@
+C:\Users\mehedihasan\source\repos\FinalAdmin1\Data Entity Layer\obj\Debug\Data Entity Layer.csproj.AssemblyReference.cache
+C:\Users\mehedihasan\source\repos\FinalAdmin1\Data Entity Layer\obj\Debug\Data Entity Layer.csproj.CoreCompileInputs.cache
+C:\Users\mehedihasan\source\repos\FinalAdmin1\Data Entity Layer\bin\Debug\Data Entity Layer.dll.config
+C:\Users\mehedihasan\source\repos\FinalAdmin1\Data Entity Layer\bin\Debug\Data Entity Layer.dll
+C:\Users\mehedihasan\source\repos\FinalAdmin1\Data Entity Layer\bin\Debug\Data Entity Layer.pdb
+C:\Users\mehedihasan\source\repos\FinalAdmin1\Data Entity Layer\bin\Debug\EntityFramework.dll
+C:\Users\mehedihasan\source\repos\FinalAdmin1\Data Entity Layer\bin\Debug\EntityFramework.xml
+C:\Users\mehedihasan\source\repos\FinalAdmin1\Data Entity Layer\obj\Debug\Data Entity Layer.csproj.CopyComplete
+C:\Users\mehedihasan\source\repos\FinalAdmin1\Data Entity Layer\obj\Debug\Data Entity Layer.dll
+C:\Users\mehedihasan\source\repos\FinalAdmin1\Data Entity Layer\obj\Debug\Data Entity Layer.pdb
